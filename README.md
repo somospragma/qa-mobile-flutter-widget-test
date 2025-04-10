@@ -1,35 +1,112 @@
-<h4 align="center">Proyecto base de <a href="https://github.com/karatelabs/karate" target="_blank">Pragma</a></h4>
+<h1 align="center">
+  <br>
+  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://f.hubspotusercontent20.net/hubfs/2829524/Copia%20de%20LOGOTIPO_original-2.png"></a>
+  <br>
+  qa-mobile-flutter-widget-test
+  <br>
+</h1>
 
-Este repositorio cuenta con la siguiente estructura base para su documentación:
+Este proyecto muestra cómo estructurar y ejecutar **pruebas de widget** en Flutter, incluyendo navegación, validaciones de formulario y mensajes en pantalla.
+
+---
+
+## 📁 Estructura del proyecto
 
 ```
-- catalog-info.yaml
-- docs
-  - index.md
-  - topicos.md
-  - tecnologias.md
-  - consideraciones.md
-  - instalacion.md
-  - descarga.md
-  - tests.md
-- mkdocs.yaml
+lib/
+├── login.dart
+└── formulario.dart
+
+test/
+├── widget/
+│   ├──login/
+│   │   └── login_screen_test.dart
+│   └──form/
+│       └── form_screen_test.dart   
+│
+├── finder/
+│   ├── form_page.dart
+│   └── login_page.dart
+│
+├── utils/
+│   └── user_constants.dart
+│
+└── helpers/
+    └── widget_test_utils.dart
 ```
 
+---
 
-## Estructura
+## 🧪 Ejecutar pruebas
 
-### catalog-info.yaml
+```bash
+flutter test
+```
 
-Este archivo es necesario pensando en una plataforma de ingeniería [(Backstage)](https://backstage.io/docs/overview/what-is-backstage), con la intención de centralizar y visualizar todos los repositorios de una manera diferente a lo que puede proveer Github. Dentro del mismo documento se encontrarán enlaces a la documentación oficial que indicará el significado de cada uno de los parámetros solicitados (recuerda actualizar su contenido).
+### Ejecutar prueba individual
 
-### /docs
+```bash
+flutter test test/widget/login_screen_test.dart
+```
 
-Dentro de la carpeta docs se encontrarán las diferentes partes de un readme con un pequeño ejemplo dentro de cada una de ellas (recuerda actualizar su contenido).
+### Mostrar salida detallada
 
-### mkdocs.yaml
+```bash
+flutter test --reporter expanded
+```
 
-Este documento contiene la ruta de navegación estructurada de los diferentes archivos que están dentro de la carpeta docs. Esto para una mejor categorización y vizualización de la documentación dentro de la plataforma de ingeniería.
+---
+
+## 🧰 Utilidades para pruebas
+
+En `test/helpers/widget_test_utils.dart` definimos un helper común:
+
+```dart
+Future<void> pumpApp(WidgetTester tester, Widget widget) async {
+  await tester.pumpWidget(
+    MaterialApp(home: widget),
+  );
+```
+
+Esto te permite testear cualquier widget que dependa de `MaterialApp` sin repetir código.
+
+---
+
+## ✅ Pruebas cubiertas
+
+### 🔐 LoginScreen
+- Campos visibles: usuario y contraseña.
+- Validación de campos vacíos e incorrectos.
+- Navegación a `MyForm` al ingresar credenciales correctas.
+
+### 📝 MyForm
+- Validación de nombre, apellido, correo y celular.
+- Verificación de correo inválido.
+- Muestra `SnackBar` con los datos ingresados si todo es correcto.
+
+---
+
+## 🧾 Requisitos
+
+- Flutter 3.x o superior
+- Dependencias por defecto (`flutter_test` incluida)
+
+---
+
+## 💡 Recomendaciones
+
+- Usa `Key` en tus widgets para facilitar las búsquedas en pruebas.
 
 
-### [Nota]
-Este README es utilizado para dar claridad sobre la documentación de este repositorio y la estructuración de la misma, toda la documentación del repositorio se encuentra en la carpeta /docs. 
+---
+
+## 📚 Recursos útiles
+
+- [Pruebas en Flutter (oficial)](https://docs.flutter.dev/testing)
+
+
+---
+
+## 👨‍💻 Autor
+
+ [<img src="https://secure.gravatar.com/avatar/23b2db02403d79ebd356e8e8356758ec?s=192&d=identicon" width=115><br><sub>Marcos Silva</sub>](https://gitlab.com/)
